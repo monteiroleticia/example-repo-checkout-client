@@ -1,11 +1,11 @@
 import type { RequestHandler } from "express";
 import { toListResponse, toResponse } from "../mappers/orderMapper.js";
 import {
-    type CreatePaymentDTO,
     createPayment,
     findAll,
     updatePaymentStatus,
 } from "../services/paymentService.js";
+import type { CreatePaymentDTO } from "../validation/paymentValidation.js";
 
 interface OrderParams {
     id: string;
@@ -18,7 +18,7 @@ const create: RequestHandler<
 > = async (req, res, next): Promise<void> => {
     try {
         const order = await createPayment(req.body);
-        res.status(200).json(toResponse(order, true));
+        res.status(201).json(toResponse(order, true));
     } catch (err) {
         next(err);
     }

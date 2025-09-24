@@ -1,12 +1,7 @@
 ﻿import { pool } from "../db.js";
 import { dinteroClient } from "../integrations/dintero/index.js";
 import { type Payment, PaymentStatus } from "../models/payment.js";
-
-export interface CreatePaymentDTO {
-    amount: number;
-    currency: string;
-    receipt: string;
-}
+import type { CreatePaymentDTO } from "../validation/paymentValidation.js";
 
 export async function createPayment(data: CreatePaymentDTO): Promise<Payment> {
     const client = await pool.connect();
