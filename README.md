@@ -44,8 +44,8 @@ This is a **payment processing API** built with Node.js, TypeScript, and Express
 │       │       └── paymentValidation.ts
 │       └── test/
 │           ├── setup.ts
-│           ├── example/
-│           │   └── simple.test.ts
+│           ├── feature/
+│           │   └── orders.test.ts
 │           └── unit/
 │               ├── orderController.test.ts
 │               ├── orderMapper.test.ts
