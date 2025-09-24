@@ -1,25 +1,57 @@
-# example-repo
+# Payment Processing API
 
-Basic node-typescript project using express framework
+This is a **payment processing API** built with Node.js, TypeScript, and Express, integrated with **Dintero** payment gateway and **PostgreSQL** database.
 
 ## Project structure
 
 ```
-├── app
-│   └── example
-│       ├── package.json
-│       ├── src
-│       │   ├── api.ts
-│       │   └── server.ts
-│       ├── test
-│       │   └── example
-│       │       └── simple.test.ts
-│       ├── tsconfig.build.json
-│       ├── tsconfig.json
-│       └── yarn.lock
+├── app/
+│   └── example/
+│       ├── jest.config.json
+│       ├── package.json
+│       ├── tsconfig.build.json
+│       ├── tsconfig.json
+│       ├── migrations/
+│       │   └── V0001__create_order_table.sql
+│       ├── src/
+│       │   ├── api.ts
+│       │   ├── db.ts
+│       │   ├── server.ts
+│       │   ├── controllers/
+│       │   │   └── orderController.ts
+│       │   ├── integrations/
+│       │   │   ├── index.ts
+│       │   │   └── dintero/
+│       │   │       ├── client.ts
+│       │   │       ├── config.ts
+│       │   │       ├── index.ts
+│       │   │       └── types.ts
+│       │   ├── mappers/
+│       │   │   └── orderMapper.ts
+│       │   ├── models/
+│       │   │   └── payment.ts
+│       │   ├── routes/
+│       │   │   └── orderRoutes.ts
+│       │   └── services/
+│       │       └── paymentService.ts
+│       └── test/
+│           ├── setup.ts
+│           ├── example/
+│           │   └── simple.test.ts
+│           └── unit/
+│               └── paymentService.test.ts
+├── tasks/
+│   └── order-payment.md
+├── biome.json
+├── docker-compose.yml
 ├── Makefile
 └── README.md
 ```
+
+### API Endpoints:
+- `POST /orders` - Create new payment order
+- `GET /orders` - List all payment orders
+- `GET /orders/:id/payment-redirect` - Handle payment redirect/status update
 
 ## Development
 
@@ -54,7 +86,83 @@ yarn --cwd app/example start
 
 > The example API will then by default be running on port 3000
 
+
+## API Testing
+
+### Environment Variables
+Before testing, make sure you have the required environment variables set in `.env` file.
+
+### Basic API Testing with cURL
+
+**1. Create a new payment order**
+```bash
+curl -X POST http://localhost:3000/orders \
+  -H "Content-Type: application/json" \
+  -d '{
+    "amount": 10000,
+    "currency": "NOK",
+    "receipt": "receipt-123"
+  }'
 ```
-curl http://localhost:3000/ping -s
-"pong"
+
+Expected response:
+```json
+{
+  "id": "uuid-here",
+  "created_at": "2025-09-23T20:30:00.000Z",
+  "amount": 10000,
+  "currency": "NOK",
+  "receipt": "receipt-123",
+  "status": "PENDING",
+  "links": [
+    {
+      "rel": "session_link",
+      "href": "https://checkout.dintero.com/session/..."
+    }
+  ]
+}
 ```
+
+**2. List all payment orders**
+```bash
+curl -X GET http://localhost:3000/orders
+```
+
+Expected response:
+```json
+{
+  "orders": [
+    {
+      "id": "uuid-here",
+      "created_at": "2025-09-23T20:30:00.000Z",
+      "amount": 10000,
+      "currency": "NOK",
+      "receipt": "receipt-123",
+      "status": "PENDING"
+    }
+  ]
+}
+```
+
+**3. Update payment status**
+```bash
+curl -X GET http://localhost:3000/orders/{order-id}/payment-redirect
+```
+
+Expected response:
+```json
+{
+  "message": "Order updated successfully",
+  "order": {
+    "id": "uuid-here",
+    "created_at": "2025-09-23T20:30:00.000Z",
+    "amount": 10000,
+    "currency": "NOK", 
+    "receipt": "receipt-123",
+    "status": "AUTHORIZED"
+  }
+}
+```
+
+
+
