@@ -1,7 +1,8 @@
-﻿import { pool } from "../db.js";
-import { dinteroClient } from "../integrations/dintero/index.js";
-import { type Payment, PaymentStatus } from "../models/payment.js";
-import type { CreatePaymentDTO } from "../validation/paymentValidation.js";
+﻿import { pool } from "../db";
+import { dinteroClient } from "../integrations/dintero/index";
+import type { Payment } from "../models/payment";
+import type { CreatePaymentDTO } from "../validation/paymentValidation";
+import { PaymentStatus } from "../models/enums/paymentStatus";
 
 export async function createPayment(data: CreatePaymentDTO): Promise<Payment> {
     const client = await pool.connect();
