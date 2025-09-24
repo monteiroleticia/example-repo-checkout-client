@@ -1,11 +1,11 @@
 import type { RequestHandler } from "express";
 import { toListResponse, toResponse } from "../mappers/orderMapper.js";
 import {
-    type CreatePaymentDTO,
     createPayment,
     findAll,
     updatePaymentStatus,
 } from "../services/paymentService.js";
+import type { CreatePaymentDTO } from "../validation/paymentValidation.js";
 
 interface OrderParams {
     id: string;

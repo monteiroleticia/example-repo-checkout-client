@@ -14,7 +14,8 @@
         "build": "yarn -s build-ts && yarn -s lint",
         "start:api": "cross-env DATABASE_URL=postgres://user:pass@localhost:5432/orders node --watch --watch-preserve-output dist/server.js",
         "start": "yarn -s build-ts -w & yarn -s start:api",
-        "test": "jest --maxWorkers=1"
+        "test": "jest --maxWorkers=1",
+        "test:coverage": "jest --maxWorkers=1 --coverage"
     },
     "devDependencies": {
         "@biomejs/biome": "1.9.4",
@@ -33,6 +34,7 @@
         "axios": "^1.12.2",
         "dotenv": "^17.2.2",
         "express": "5.1.0",
+        "joi": "^18.0.1",
         "pg": "^8.16.3",
         "pg-hstore": "^2.3.4",
         "sqlite3": "^5.1.7",

@@ -27,19 +27,31 @@ This is a **payment processing API** built with Node.js, TypeScript, and Express
 │       │   │       ├── index.ts
 │       │   │       └── types.ts
 │       │   ├── mappers/
-│       │   │   └── orderMapper.ts
+│       │   │   ├── orderMapper.ts
+│       │   │   └── statusMapper.ts
+│       │   ├── middleware/
+│       │   │   └── validation.ts
 │       │   ├── models/
-│       │   │   └── payment.ts
+│       │   │   ├── payment.ts
+│       │   │   └── enums/
+│       │   │       ├── dinteroStatus.ts
+│       │   │       └── paymentStatus.ts
 │       │   ├── routes/
 │       │   │   └── orderRoutes.ts
-│       │   └── services/
-│       │       └── paymentService.ts
+│       │   ├── services/
+│       │   │   └── paymentService.ts
+│       │   └── validation/
+│       │       └── paymentValidation.ts
 │       └── test/
 │           ├── setup.ts
 │           ├── example/
 │           │   └── simple.test.ts
 │           └── unit/
-│               └── paymentService.test.ts
+│               ├── orderController.test.ts
+│               ├── orderMapper.test.ts
+│               ├── paymentService.test.ts
+│               ├── paymentValidation.test.ts
+│               └── validation.test.ts
 ├── tasks/
 │   └── order-payment.md
 ├── biome.json
