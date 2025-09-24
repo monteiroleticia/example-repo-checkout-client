@@ -11,10 +11,10 @@ function validateDinteroConfig() {
 
 validateDinteroConfig();
 
+const ACCOUNT = process.env.DINTERO_ACCOUNT || "T11223674";
+
 export const DINTERO_CONFIG = {
-    AUTH_URL:
-        process.env.DINTERO_AUTH_URL ||
-        "https://test.dintero.com/v1/accounts/T11223674/auth/token",
+    AUTH_URL: process.env.DINTERO_AUTH_URL || `https://test.dintero.com/v1/accounts/${ACCOUNT}/auth/token`,
     SESSION_URL:
         process.env.DINTERO_SESSION_URL ||
         "https://checkout.test.dintero.com/v1/sessions-profile",
@@ -24,7 +24,5 @@ export const DINTERO_CONFIG = {
     CLIENT_ID: process.env.DINTERO_CLIENT_ID || "",
     CLIENT_SECRET: process.env.DINTERO_CLIENT_SECRET || "",
     PROFILE_ID: process.env.DINTERO_PROFILE_ID || "default",
-    AUDIENCE:
-        process.env.DINTERO_AUDIENCE ||
-        "https://test.dintero.com/v1/accounts/T11223674",
+    AUDIENCE: process.env.DINTERO_AUDIENCE || `https://test.dintero.com/v1/accounts/${ACCOUNT}`,
 } as const;

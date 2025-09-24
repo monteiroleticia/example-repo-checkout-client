@@ -18,7 +18,7 @@ const create: RequestHandler<
 > = async (req, res, next): Promise<void> => {
     try {
         const order = await createPayment(req.body);
-        res.status(201).json(toResponse(order, true));
+        res.status(200).json(toResponse(order, true));
     } catch (err) {
         next(err);
     }
