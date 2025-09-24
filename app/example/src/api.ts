@@ -45,4 +45,4 @@ api.get("/ping/", async (_, res) => {
 api.use("/orders", orderRoutes);
 api.use(errorHandler);
 
-export { api };
+export { api, errorHandler, simpleRequestLogger };

@@ -12,8 +12,8 @@ export class DinteroClient {
     private accessToken?: string;
     private tokenExpiry?: number;
 
-    constructor() {
-        this.httpClient = axios.create({
+    constructor(httpClient?: AxiosInstance) {
+        this.httpClient = httpClient || axios.create({
             timeout: 30000,
             headers: {
                 "Content-Type": "application/json",
