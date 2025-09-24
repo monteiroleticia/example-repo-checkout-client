@@ -1,0 +1,41 @@
+{
+    "name": "example",
+    "version": "1.0.0",
+    "repository": "git@github.com:Dintero/example-repo.git",
+    "author": "Frode Aannevik <frode@dintero.com>",
+    "license": "UNLICENSED",
+    "private": true,
+    "engines": {
+        "node": ">=20.0"
+    },
+    "scripts": {
+        "lint": "biome check --config-path ../../biome.json ../..",
+        "build-ts": "tsc -p tsconfig.build.json",
+        "build": "yarn -s build-ts && yarn -s lint",
+        "start:api": "cross-env DATABASE_URL=postgres://user:pass@localhost:5432/orders node --watch --watch-preserve-output dist/server.js",
+        "start": "yarn -s build-ts -w & yarn -s start:api",
+        "test": "jest --maxWorkers=1"
+    },
+    "devDependencies": {
+        "@biomejs/biome": "1.9.4",
+        "@types/express": "5.0.3",
+        "@types/jest": "29.5.14",
+        "@types/node": "22.10.6",
+        "@types/pg": "^8.15.5",
+        "@types/supertest": "^6.0.3",
+        "cross-env": "^7.0.3",
+        "jest": "29.7.0",
+        "supertest": "^7.1.4",
+        "ts-jest": "29.4.1",
+        "typescript": "5.8.3"
+    },
+    "dependencies": {
+        "axios": "^1.12.2",
+        "dotenv": "^17.2.2",
+        "express": "5.1.0",
+        "pg": "^8.16.3",
+        "pg-hstore": "^2.3.4",
+        "sqlite3": "^5.1.7",
+        "uuid": "^13.0.0"
+    }
+}

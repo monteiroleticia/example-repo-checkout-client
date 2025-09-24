@@ -1,0 +1,11 @@
+dist
+node_modules
+
+# Environment files (contain sensitive data)
+.env
+.env.local
+.env.production
+.env.staging
+
+# Keep .env.example for documentation
+!.env.example
