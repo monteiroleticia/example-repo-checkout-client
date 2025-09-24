@@ -8,20 +8,22 @@ import type {
 } from "./types";
 
 export class DinteroClient {
-    private httpClient: AxiosInstance;
-    private accessToken?: string;
-    private tokenExpiry?: number;
+    httpClient: AxiosInstance;
+    accessToken?: string;
+    tokenExpiry?: number;
 
     constructor(httpClient?: AxiosInstance) {
-        this.httpClient = httpClient || axios.create({
-            timeout: 30000,
-            headers: {
-                "Content-Type": "application/json",
-            },
-        });
+        this.httpClient =
+            httpClient ||
+            axios.create({
+                timeout: 30000,
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
     }
 
-    private async getAccessToken(): Promise<string> {
+    async getAccessToken(): Promise<string> {
         if (
             this.accessToken &&
             this.tokenExpiry &&

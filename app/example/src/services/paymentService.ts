@@ -1,12 +1,12 @@
 ﻿import { pool } from "../db";
 import { dinteroClient } from "../integrations/dintero/index";
+import { mapDinteroStatus } from "../mappers/statusMapper";
+import { PaymentStatus } from "../models/enums/paymentStatus";
 import type { Payment } from "../models/payment";
 import type { CreatePaymentDTO } from "../validation/paymentValidation";
-import { PaymentStatus } from "../models/enums/paymentStatus";
 
 export async function createPayment(data: CreatePaymentDTO): Promise<Payment> {
     const client = await pool.connect();
-
     try {
         await client.query("BEGIN");
 
@@ -81,10 +81,11 @@ export async function updatePaymentStatus(orderId: string): Promise<Payment> {
     );
     const latestEvent = sessionStatus.events?.[sessionStatus.events.length - 1];
     const dinteroStatus = latestEvent?.name || PaymentStatus.PENDING;
+    const status = mapDinteroStatus(dinteroStatus);
 
     const { rows } = await pool.query<Payment>(
         "UPDATE orders.payments SET status = $1 WHERE id = $2 RETURNING *",
-        [dinteroStatus, orderId],
+        [status, orderId],
     );
 
     return rows[0];
