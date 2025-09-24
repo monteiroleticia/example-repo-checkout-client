@@ -120,7 +120,7 @@ curl -X POST http://localhost:3000/orders \
 Expected response:
 ```json
 {
-  "id": "uuid-here",
+  "id": "1b8b12ba-dd77-47d0-906b-b1ae3f7d68b6",
   "created_at": "2025-09-23T20:30:00.000Z",
   "amount": 10000,
   "currency": "NOK",
@@ -145,7 +145,7 @@ Expected response:
 {
   "orders": [
     {
-      "id": "uuid-here",
+      "id": "1b8b12ba-dd77-47d0-906b-b1ae3f7d68b6",
       "created_at": "2025-09-23T20:30:00.000Z",
       "amount": 10000,
       "currency": "NOK",
@@ -166,7 +166,7 @@ Expected response:
 {
   "message": "Order updated successfully",
   "order": {
-    "id": "uuid-here",
+    "id": "order-id",
     "created_at": "2025-09-23T20:30:00.000Z",
     "amount": 10000,
     "currency": "NOK", 
